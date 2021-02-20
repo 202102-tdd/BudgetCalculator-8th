@@ -46,7 +46,10 @@ namespace BudgetSystem
                 }
                 else if (currentDate.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
-                    middleAmount += EndAmount(end, budgets);
+                    var totalDaysOfEnd = DateTime.DaysInMonth(end.Year, end.Month);
+
+                    var endAmount = GetMonthAmount(end, budgets);
+                    middleAmount += end.Day * endAmount / totalDaysOfEnd;
                 }
                 else
                 {
@@ -57,14 +60,6 @@ namespace BudgetSystem
             }
 
             return middleAmount;
-        }
-
-        private static decimal EndAmount(DateTime end, List<Budget> budgets)
-        {
-            var totalDaysOfEnd = DateTime.DaysInMonth(end.Year, end.Month);
-
-            var endAmount = GetMonthAmount(end, budgets);
-            return end.Day * endAmount / totalDaysOfEnd;
         }
 
         private static decimal GetMonthAmount(DateTime start, List<Budget> budgets)
