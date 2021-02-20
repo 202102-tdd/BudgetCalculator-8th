@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace BudgetSystem
 {
@@ -11,10 +13,25 @@ namespace BudgetSystem
             _repo = repo;
         }
 
-        public decimal query(DateTime start, DateTime end)
+        public decimal Query(DateTime start, DateTime end)
         {
+            if (start>end)
+            {
+                return 0;
+            }
             var budgets = _repo.GetAll();
-            return budgets[0].Amount;
+            var startMonthData = budgets.FirstOrDefault(a => a.YearMonth == start.ToString("yyyyMM"));
+            //var endMonthData = budgets.FirstOrDefault(a => a.YearMonth == end.ToString("yyyyMM"));
+            if (startMonthData == null)
+            {
+                return 0;
+            }
+            else
+            {
+
+            }
+            var interval = (end - start).Days + 1;
+            return budgets[0].Amount / 31 * interval;
         }
     }
 }
