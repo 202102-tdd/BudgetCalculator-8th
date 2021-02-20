@@ -18,6 +18,14 @@ namespace BudgetSystem
 
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
+
+        public int OverlappingDays(Budget budget)
+        {
+            var overlappingStart = Start > budget.FirstDay() ? Start : budget.FirstDay();
+            var overlappingEnd = End < budget.LastDay() ? End : budget.LastDay();
+
+            return (overlappingEnd - overlappingStart).Days + 1;
+        }
     }
 
     public class BudgetCalculator
@@ -52,7 +60,7 @@ namespace BudgetSystem
                 var budget = budgets.FirstOrDefault(a => a.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var overlappingDays = OverlappingDays(new Period(start, end), budget);
+                    var overlappingDays = new Period(start, end).OverlappingDays(budget);
 
                     middleAmount += overlappingDays * budget.DailyAmount();
                 }
@@ -68,14 +76,6 @@ namespace BudgetSystem
             var startMonthData = budgets.FirstOrDefault(a => a.YearMonth == start.ToString("yyyyMM"));
 
             return startMonthData?.Amount ?? 0;
-        }
-
-        private static int OverlappingDays(Period period, Budget budget)
-        {
-            var overlappingStart = period.Start > budget.FirstDay() ? period.Start : budget.FirstDay();
-            var overlappingEnd = period.End < budget.LastDay() ? period.End : budget.LastDay();
-
-            return (overlappingEnd - overlappingStart).Days + 1;
         }
     }
 }
