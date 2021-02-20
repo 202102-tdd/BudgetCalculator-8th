@@ -40,7 +40,8 @@ namespace BudgetSystem
                 var budget = budgets.FirstOrDefault(a => a.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var overlappingDays = new Period(start, end).OverlappingDays(budget);
+                    var overlappingDays =
+                        new Period(start, end).OverlappingDays(new Period(budget.FirstDay(), budget.LastDay()));
 
                     middleAmount += overlappingDays * budget.DailyAmount();
                 }
