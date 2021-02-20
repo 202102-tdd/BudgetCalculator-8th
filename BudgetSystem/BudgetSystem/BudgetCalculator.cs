@@ -55,22 +55,14 @@ namespace BudgetSystem
             var endMonth_TotalDays = DateTime.DaysInMonth(end.Year, end.Month);
 
             var endAmount = GetMonthAmount(end, budgets);
-            var endDays = end.Day;
-            return endDays * endAmount / endMonth_TotalDays;
+            return end.Day * endAmount / endMonth_TotalDays;
         }
 
         private static decimal GetMonthAmount(DateTime start, List<Budget> budgets)
         {
             var startMonthData = budgets.FirstOrDefault(a => a.YearMonth == start.ToString("yyyyMM"));
 
-            if (startMonthData == null)
-            {
-                return 0;
-            }
-            else
-            {
-                return startMonthData.Amount;
-            }
+            return startMonthData?.Amount ?? 0;
         }
 
         private static decimal StartAmount(DateTime start, List<Budget> budgets)
