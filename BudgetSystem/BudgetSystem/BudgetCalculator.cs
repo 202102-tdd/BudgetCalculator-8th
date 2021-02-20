@@ -19,7 +19,6 @@ namespace BudgetSystem
 
         public decimal Query(DateTime start, DateTime end)
         {
-
             var period = new Period(start, end);
             return _repo.GetAll().Sum(b => b.OverlappingAmount(period));
         }
