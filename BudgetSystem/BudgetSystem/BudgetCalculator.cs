@@ -56,7 +56,9 @@ namespace BudgetSystem
                 }
                 else
                 {
-                    middleAmount += GetMonthAmount(currentDate, budgets);
+                    var budget = budgets.FirstOrDefault(a => a.YearMonth == currentDate.ToString("yyyyMM"));
+
+                    middleAmount += budget?.Amount ?? 0;
                 }
 
                 currentDate = currentDate.AddMonths(1);
