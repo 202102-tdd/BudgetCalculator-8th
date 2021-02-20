@@ -42,7 +42,7 @@ namespace BudgetSystem
                 {
                     if (currentDate.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
-                        var amount = budget?.Amount ?? 0m;
+                        var amount = budget.Amount;
                         var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
                         var overlappingDays = daysInMonth - start.Day + 1;
                         middleAmount += overlappingDays * amount / daysInMonth;
@@ -51,13 +51,13 @@ namespace BudgetSystem
                     {
                         var daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
 
-                        var amount = budget?.Amount ?? 0m;
+                        var amount = budget.Amount;
                         var overlappingDays = end.Day;
                         middleAmount += overlappingDays * amount / daysInMonth;
                     }
                     else
                     {
-                        middleAmount += budget?.Amount ?? 0;
+                        middleAmount += budget.Amount;
                     }
                 }
 
