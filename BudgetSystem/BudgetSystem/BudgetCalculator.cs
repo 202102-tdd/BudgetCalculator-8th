@@ -49,7 +49,8 @@ namespace BudgetSystem
                 {
                     var daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
 
-                    var amount = GetMonthAmount(end, budgets);
+                    var budget = budgets.FirstOrDefault(a => a.YearMonth == end.ToString("yyyyMM"));
+                    var amount = budget?.Amount ?? 0m;
                     var overlappingDays = end.Day;
                     middleAmount += overlappingDays * amount / daysInMonth;
                 }
