@@ -54,7 +54,9 @@ namespace BudgetSystem
                     }
                     else
                     {
-                        middleAmount += budget.Amount;
+                        var daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
+                        var overlappingDays = daysInMonth;
+                        middleAmount += overlappingDays * budget.Amount / daysInMonth;
                     }
                 }
 
