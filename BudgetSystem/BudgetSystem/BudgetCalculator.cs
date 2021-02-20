@@ -68,7 +68,7 @@ namespace BudgetSystem
             }
             else if (budget.YearMonth == end.ToString("yyyyMM"))
             {
-                overlappingEnd = end;
+                overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
             }
             else
             {
