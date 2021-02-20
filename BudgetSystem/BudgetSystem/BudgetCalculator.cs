@@ -32,16 +32,16 @@ namespace BudgetSystem
                 return interval * startAmount / DateTime.DaysInMonth(end.Year, end.Month);
             }
 
-            decimal totalInterval = 0;
-            var tempDate = start.AddMonths(1);
+            decimal middleAmount = 0;
+            var currentDate = start.AddMonths(1);
             var middleEnd = new DateTime(end.Year, end.Month, 1);
-            while (tempDate > start && tempDate < middleEnd)
+            while (currentDate > start && currentDate < middleEnd)
             {
-                totalInterval += GetMonthAmount(tempDate, budgets);
-                tempDate = tempDate.AddMonths(1);
+                middleAmount += GetMonthAmount(currentDate, budgets);
+                currentDate = currentDate.AddMonths(1);
             }
 
-            return StartAmount(start, budgets) + totalInterval + EndAmount(end, budgets);
+            return StartAmount(start, budgets) + middleAmount + EndAmount(end, budgets);
         }
 
         private static decimal EndAmount(DateTime end, List<Budget> budgets)
