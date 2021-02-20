@@ -40,16 +40,16 @@ namespace BudgetSystem
                 if (currentDate.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
                     var startAmount = GetMonthAmount(start, budgets);
-                    var totalDaysOfStart = DateTime.DaysInMonth(start.Year, start.Month);
-                    var strDays = totalDaysOfStart - start.Day + 1;
-                    middleAmount += strDays * startAmount / totalDaysOfStart;
+                    var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
+                    var strDays = daysInMonth - start.Day + 1;
+                    middleAmount += strDays * startAmount / daysInMonth;
                 }
                 else if (currentDate.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
-                    var totalDaysOfEnd = DateTime.DaysInMonth(end.Year, end.Month);
+                    var daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
 
                     var endAmount = GetMonthAmount(end, budgets);
-                    middleAmount += end.Day * endAmount / totalDaysOfEnd;
+                    middleAmount += end.Day * endAmount / daysInMonth;
                 }
                 else
                 {
