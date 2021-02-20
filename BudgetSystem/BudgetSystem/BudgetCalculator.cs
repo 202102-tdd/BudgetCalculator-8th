@@ -24,17 +24,8 @@ namespace BudgetSystem
                 return 0;
             }
 
-            var budgets = _repo.GetAll();
-
-            decimal middleAmount = 0;
             var period = new Period(start, end);
-            return budgets.Sum(b => b.OverlappingAmount(period));
-            foreach (var budget in budgets)
-            {
-                middleAmount += budget.OverlappingAmount(period);
-            }
-
-            return middleAmount;
+            return _repo.GetAll().Sum(b => b.OverlappingAmount(period));
         }
 
         private static decimal GetMonthAmount(DateTime start, List<Budget> budgets)
