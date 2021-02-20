@@ -34,10 +34,8 @@ namespace BudgetSystem
 
             decimal middleAmount = 0;
             var currentDate = start;
-            // var currentDate = start.AddMonths(1);
             var middleEnd = new DateTime(end.Year, end.Month, 1);
             while (currentDate < middleEnd)
-                // while (currentDate > start && currentDate < middleEnd)
             {
                 if (currentDate.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
@@ -52,7 +50,6 @@ namespace BudgetSystem
             }
 
             return middleAmount + EndAmount(end, budgets);
-            // return StartAmount(start, budgets) + middleAmount + EndAmount(end, budgets);
         }
 
         private static decimal EndAmount(DateTime end, List<Budget> budgets)
