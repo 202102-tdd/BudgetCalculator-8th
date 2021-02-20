@@ -50,12 +50,14 @@ namespace BudgetSystem
                     }
                     else if (currentDate.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
+                        daysInMonth = budget.Days();
+                        // daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
                         overlappingDays = end.Day;
                     }
                     else
                     {
-                        daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
+                        daysInMonth = budget.Days();
+                        // daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
                         overlappingDays = daysInMonth;
                     }
 
