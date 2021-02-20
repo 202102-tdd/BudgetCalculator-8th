@@ -160,6 +160,21 @@ namespace BudgetSystem
             var query = cal.Query(new DateTime(2020, 4, 27), new DateTime(2021, 4, 2));
             Assert.AreEqual(200, query);
         }
+
+        [Test]
+        public void start_day_less_than_end_day()
+        {
+            IBudgetRepo repo = Substitute.For<IBudgetRepo>();
+            repo.GetAll()
+                .Returns(new List<Budget>
+                         {
+                             new Budget {YearMonth = "202103", Amount = 31},
+                             new Budget {YearMonth = "202104", Amount = 3000}
+                         });
+            var cal = new BudgetCalculator(repo);
+            var query = cal.Query(new DateTime(2021, 3, 27), new DateTime(2021, 4, 29));
+            Assert.AreEqual(5 + 2900, query);
+        }
     }
 
     public class Budget
