@@ -184,13 +184,24 @@ namespace BudgetSystem
 
         public int Days()
         {
-            var firstDay = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+            var firstDay = FirstDay();
             return DateTime.DaysInMonth(firstDay.Year, firstDay.Month);
+        }
+
+        private DateTime FirstDay()
+        {
+            var firstDay = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+            return firstDay;
         }
 
         public int DailyAmount()
         {
             return (Amount / Days());
+        }
+
+        public DateTime LastDay()
+        {
+            return new DateTime(FirstDay().Year, FirstDay().Month, Days());
         }
     }
 }
