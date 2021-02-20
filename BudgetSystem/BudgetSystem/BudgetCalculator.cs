@@ -33,22 +33,11 @@ namespace BudgetSystem
             }
 
             decimal middleAmount = 0;
-            var currentDate = start;
-            var middleEnd = new DateTime(end.Year, end.Month, 1).AddMonths(1);
             var period = new Period(start, end);
-            // while (currentDate < middleEnd)
-            // {
-            //     var budget = budgets.FirstOrDefault(a => a.YearMonth == currentDate.ToString("yyyyMM"));
-            //     if (budget != null)
-            //     {
             foreach (var budget in budgets)
             {
                 middleAmount += budget.OverlappingAmount(period);
             }
-            //     }
-            //
-            //     currentDate = currentDate.AddMonths(1);
-            // }
 
             return middleAmount;
         }
