@@ -62,17 +62,18 @@ namespace BudgetSystem
         {
             DateTime overlappingEnd;
             var overlappingStart = start > budget.FirstDay() ? start : budget.FirstDay();
+            overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
             if (budget.YearMonth == start.ToString("yyyyMM"))
             {
-                overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
+                // overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
             }
             else if (budget.YearMonth == end.ToString("yyyyMM"))
             {
-                overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
+                // overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
             }
             else
             {
-                overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
+                // overlappingEnd = end < budget.LastDay() ? end : budget.LastDay();
             }
 
             return (overlappingEnd - overlappingStart).Days + 1;
