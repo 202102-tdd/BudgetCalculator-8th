@@ -203,5 +203,10 @@ namespace BudgetSystem
         {
             return new DateTime(FirstDay().Year, FirstDay().Month, Days());
         }
+
+        public Period CreatePeriod()
+        {
+            return new Period(FirstDay(), LastDay());
+        }
     }
 }

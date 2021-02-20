@@ -41,7 +41,7 @@ namespace BudgetSystem
                 if (budget != null)
                 {
                     var overlappingDays =
-                        new Period(start, end).OverlappingDays(CreatePeriod(budget));
+                        new Period(start, end).OverlappingDays(budget.CreatePeriod());
 
                     middleAmount += overlappingDays * budget.DailyAmount();
                 }
@@ -50,11 +50,6 @@ namespace BudgetSystem
             }
 
             return middleAmount;
-        }
-
-        private static Period CreatePeriod(Budget budget)
-        {
-            return new Period(budget.FirstDay(), budget.LastDay());
         }
 
         private static decimal GetMonthAmount(DateTime start, List<Budget> budgets)
