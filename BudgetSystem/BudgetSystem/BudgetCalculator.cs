@@ -28,6 +28,20 @@ namespace BudgetSystem
                 var startAmount1 = GetMonthAmount(start, budgets);
                 return interval * startAmount1 / DateTime.DaysInMonth(end.Year, end.Month);
             }
+
+            if (Math.Abs(start.Month-end.Month)>=2)
+            {
+                decimal toalInterval = 0;
+                var tempDate = start.AddMonths(1);
+                while (tempDate > start && tempDate < end)
+                {
+
+                    toalInterval += GetMonthAmount(tempDate, budgets);
+                    tempDate= tempDate.AddMonths(1);
+                }
+
+                return StartAmount(start, budgets)+ toalInterval + EndAmount(end, budgets);
+            }
             else
             {
                 return StartAmount(start, budgets) + EndAmount(end, budgets);
@@ -52,6 +66,7 @@ namespace BudgetSystem
             var amount2 = (endDays * endAmount / endMonth_TotalDays);
             return amount2;
         }
+      
 
         private static decimal GetMonthAmount(DateTime start, List<Budget> budgets)
         {
