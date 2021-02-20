@@ -40,24 +40,28 @@ namespace BudgetSystem
                 var budget = budgets.FirstOrDefault(a => a.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
+                    int daysInMonth;
+                    int overlappingDays;
                     if (currentDate.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
-                        var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
-                        var overlappingDays = daysInMonth - start.Day + 1;
-                        middleAmount += overlappingDays * budget.Amount / daysInMonth;
+                        daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
+                        overlappingDays = daysInMonth - start.Day + 1;
+                        // middleAmount += overlappingDays * budget.Amount / daysInMonth;
                     }
                     else if (currentDate.ToString("yyyyMM") == end.ToString("yyyyMM"))
                     {
-                        var daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
-                        var overlappingDays = end.Day;
-                        middleAmount += overlappingDays * budget.Amount / daysInMonth;
+                        daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
+                        overlappingDays = end.Day;
+                        // middleAmount += overlappingDays * budget.Amount / daysInMonth;
                     }
                     else
                     {
-                        var daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
-                        var overlappingDays = daysInMonth;
-                        middleAmount += overlappingDays * budget.Amount / daysInMonth;
+                        daysInMonth = DateTime.DaysInMonth(end.Year, end.Month);
+                        overlappingDays = daysInMonth;
+                        // middleAmount += overlappingDays * budget.Amount / daysInMonth;
                     }
+
+                    middleAmount += overlappingDays * budget.Amount / daysInMonth;
                 }
 
                 currentDate = currentDate.AddMonths(1);
