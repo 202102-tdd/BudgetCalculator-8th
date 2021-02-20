@@ -20,36 +20,37 @@ namespace BudgetSystem
             {
                 return 0;
             }
-         
             var budgets = _repo.GetAll();
-            //var endMonthData = budgets.FirstOrDefault(a => a.YearMonth == end.ToString("yyyyMM"));
-            var startAmount= GetMonthAmount(start, budgets);
-            
-            // 起始
-            var startMonth_TotalDays = DateTime.DaysInMonth(start.Year, start.Month);
-            var strDays = startMonth_TotalDays - start.Day + 1;
-
             if (start.Month == end.Month)
             {
+            
                 var interval = (end - start).Days + 1;
-                return interval*startAmount / startMonth_TotalDays ;
+                var startAmount1 = GetMonthAmount(start, budgets);
+                return interval * startAmount1 / DateTime.DaysInMonth(end.Year, end.Month);
             }
-           
+            else
+            {
+                return StartAmount(start, budgets) + EndAmount(end, budgets);
+            }
+        }
+
+        private static decimal StartAmount(DateTime start, List<Budget> budgets)
+        {
+            var startAmount = GetMonthAmount(start, budgets);
+            var startMonth_TotalDays = DateTime.DaysInMonth(start.Year, start.Month);
+            var strDays = startMonth_TotalDays - start.Day + 1;
             var amount1 = (strDays * startAmount / startMonth_TotalDays);
-           // return amount1;
+            return amount1;
+        }
+
+        private static decimal EndAmount(DateTime end, List<Budget> budgets)
+        {
             var endMonth_TotalDays = DateTime.DaysInMonth(end.Year, end.Month);
-        
+
             var endAmount = GetMonthAmount(end, budgets);
             var endDays = end.Day;
-            var amount2 = (endDays * endAmount / endMonth_TotalDays) ;
-          
-            // 結束
-            return amount1 + amount2;
-            // var strDays = StartTotalDays(start);
-
-
-
-
+            var amount2 = (endDays * endAmount / endMonth_TotalDays);
+            return amount2;
         }
 
         private static decimal GetMonthAmount(DateTime start, List<Budget> budgets)

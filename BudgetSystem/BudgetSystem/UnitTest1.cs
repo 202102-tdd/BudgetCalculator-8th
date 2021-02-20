@@ -82,6 +82,21 @@ namespace BudgetSystem
             var query = cal.Query(new DateTime(2021, 2, 27), new DateTime(2021, 3, 3));
             Assert.AreEqual(32, query);
         }
+        [Test]
+        public void Query_Cross_Two_Months()
+        {
+            var budget = new Budget();
+            IBudgetRepo repo = Substitute.For<IBudgetRepo>();
+            repo.GetAll().Returns(new List<Budget>
+            {
+                new Budget {YearMonth = "202102", Amount = 28},
+                new Budget {YearMonth = "202103", Amount = 310},
+                new Budget {YearMonth = "202104", Amount = 3000}
+            });
+            var cal = new BudgetCalculator(repo);
+            var query = cal.Query(new DateTime(2021, 2, 27), new DateTime(2021, 4, 3));
+            Assert.AreEqual(612, query);
+        }
     }
 
     public class Budget
