@@ -42,11 +42,10 @@ namespace BudgetSystem
                 {
                     int overlappingDays;
                     if (budget.YearMonth == start.ToString("yyyyMM"))
-                        // if (currentDate.ToString("yyyyMM") == start.ToString("yyyyMM"))
                     {
                         overlappingDays = budget.Days() - start.Day + 1;
                     }
-                    else if (currentDate.ToString("yyyyMM") == end.ToString("yyyyMM"))
+                    else if (budget.YearMonth == end.ToString("yyyyMM"))
                     {
                         overlappingDays = end.Day;
                     }
