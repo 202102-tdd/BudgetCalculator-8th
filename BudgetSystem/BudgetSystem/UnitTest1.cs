@@ -188,7 +188,7 @@ namespace BudgetSystem
             return DateTime.DaysInMonth(firstDay.Year, firstDay.Month);
         }
 
-        private DateTime FirstDay()
+        public DateTime FirstDay()
         {
             var firstDay = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
             return firstDay;

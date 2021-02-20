@@ -69,7 +69,9 @@ namespace BudgetSystem
             }
             else if (budget.YearMonth == end.ToString("yyyyMM"))
             {
-                overlappingDays = end.Day;
+                var overlappingEnd = end;
+                var overlappingStart = budget.FirstDay();
+                overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
             }
             else
             {
