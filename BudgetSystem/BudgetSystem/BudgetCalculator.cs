@@ -25,12 +25,12 @@ namespace BudgetSystem
             }
 
             var budgets = _repo.GetAll();
-            if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
-            {
-                var interval = (end - start).Days + 1;
-                var startAmount = GetMonthAmount(start, budgets);
-                return interval * startAmount / DateTime.DaysInMonth(end.Year, end.Month);
-            }
+            // if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
+            // {
+            //     var interval = (end - start).Days + 1;
+            //     var startAmount = GetMonthAmount(start, budgets);
+            //     return interval * startAmount / DateTime.DaysInMonth(end.Year, end.Month);
+            // }
 
             decimal middleAmount = 0;
             var period = new Period(start, end);
