@@ -39,7 +39,10 @@ namespace BudgetSystem
             {
                 if (currentDate.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
-                    middleAmount += StartAmount(start, budgets);
+                    var startAmount = GetMonthAmount(start, budgets);
+                    var totalDaysOfStart = DateTime.DaysInMonth(start.Year, start.Month);
+                    var strDays = totalDaysOfStart - start.Day + 1;
+                    middleAmount += strDays * startAmount / totalDaysOfStart;
                 }
                 else if (currentDate.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
@@ -69,14 +72,6 @@ namespace BudgetSystem
             var startMonthData = budgets.FirstOrDefault(a => a.YearMonth == start.ToString("yyyyMM"));
 
             return startMonthData?.Amount ?? 0;
-        }
-
-        private static decimal StartAmount(DateTime start, List<Budget> budgets)
-        {
-            var startAmount = GetMonthAmount(start, budgets);
-            var totalDaysOfStart = DateTime.DaysInMonth(start.Year, start.Month);
-            var strDays = totalDaysOfStart - start.Day + 1;
-            return strDays * startAmount / totalDaysOfStart;
         }
     }
 }
