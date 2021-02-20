@@ -54,13 +54,18 @@ namespace BudgetSystem
                         overlappingDays = budget.Days();
                     }
 
-                    middleAmount += overlappingDays * budget.Amount / budget.Days();
+                    middleAmount += overlappingDays * DailyAmount(budget);
                 }
 
                 currentDate = currentDate.AddMonths(1);
             }
 
             return middleAmount;
+        }
+
+        private static int DailyAmount(Budget budget)
+        {
+            return (budget.Amount / budget.Days());
         }
 
         private static decimal GetMonthAmount(DateTime start, List<Budget> budgets)
