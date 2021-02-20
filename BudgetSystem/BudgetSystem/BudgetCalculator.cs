@@ -35,13 +35,13 @@ namespace BudgetSystem
             decimal middleAmount = 0;
             var currentDate = start;
             var middleEnd = new DateTime(end.Year, end.Month, 1).AddMonths(1);
+            var period = new Period(start, end);
             while (currentDate < middleEnd)
             {
                 var budget = budgets.FirstOrDefault(a => a.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var overlappingDays =
-                        new Period(start, end).OverlappingDays(budget.CreatePeriod());
+                    var overlappingDays = period.OverlappingDays(budget.CreatePeriod());
 
                     middleAmount += overlappingDays * budget.DailyAmount();
                 }
