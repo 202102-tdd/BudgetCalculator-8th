@@ -33,15 +33,26 @@ namespace BudgetSystem
             }
 
             decimal middleAmount = 0;
-            var currentDate = start.AddMonths(1);
+            var currentDate = start;
+            // var currentDate = start.AddMonths(1);
             var middleEnd = new DateTime(end.Year, end.Month, 1);
-            while (currentDate > start && currentDate < middleEnd)
+            while (currentDate < middleEnd)
+                // while (currentDate > start && currentDate < middleEnd)
             {
-                middleAmount += GetMonthAmount(currentDate, budgets);
+                if (currentDate.ToString("yyyyMM") == start.ToString("yyyyMM"))
+                {
+                    middleAmount += StartAmount(start, budgets);
+                }
+                else
+                {
+                    middleAmount += GetMonthAmount(currentDate, budgets);
+                }
+
                 currentDate = currentDate.AddMonths(1);
             }
 
-            return StartAmount(start, budgets) + middleAmount + EndAmount(end, budgets);
+            return middleAmount + EndAmount(end, budgets);
+            // return StartAmount(start, budgets) + middleAmount + EndAmount(end, budgets);
         }
 
         private static decimal EndAmount(DateTime end, List<Budget> budgets)
