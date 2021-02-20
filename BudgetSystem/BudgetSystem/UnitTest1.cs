@@ -181,5 +181,11 @@ namespace BudgetSystem
     {
         public string YearMonth { get; set; }
         public int Amount { get; set; }
+
+        public int Days()
+        {
+            var firstDay = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+            return DateTime.DaysInMonth(firstDay.Year, firstDay.Month);
+        }
     }
 }
